@@ -9,10 +9,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-    const title = titleModel;
-    console.log(title);
-    res.render('home',{title: titleModel});
+app.get('/', async (req, res) => {
+    const box = await titleModel.find()
+    res.render('home',{box});
 })
 app.post('/create', async (req, res) => {
      const notecreated = await titleModel.create({

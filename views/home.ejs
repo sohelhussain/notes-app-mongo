@@ -20,19 +20,26 @@
                 <input class="px-8 py-2 bg-green-300 rounded-md mt-5" type="submit" value="create">
             </form>
         </div>
-        <div class="tile mt-10 flex justify-start flex-wrap items-center gap-5">
-            <div class="box max-w-96 min-w-96 bg-zinc-500 py-5 px-5 rounded-md relative">
-                <div class="up-linner flex items-center justify-between">
-                    <h1 class="text-5xl capitalize"><%=  %></h1>
-                    <a href="<%  %>" class="text-red-700"><i class="ri-xrp-line text-xl font-bold"></i></a>
+        <div class="tile mt-10 flex flex-wrap gap-5">
+            <% if(box.length > 0){ %>
+                <% box.forEach(e => { %>
+                                    <div class="box max-w-96 min-w-96 bg-zinc-500 py-5 px-5 rounded-md relative">
+                    <div class="up-linner flex items-center justify-between">
+                        <h1 class="text-5xl capitalize"><%= e.title %></h1>
+                        <a href="" class="text-red-700"><i class="ri-xrp-line text-xl font-bold"></i></a>
+                    </div>
+                    <p class="opacity-40 mt-2 text-black">
+                        <%= e.description %>
+                    </p>
+                    <div class="linner mt-6 flex items-center justify-between">
+                        <a href="" class="text-sm cursor-pointer text-blue-800  inline-block">Read more!</a>
+                        <a id="edit" href="" class="text-yellow-400">Edit<i class="ri-sketching"></i></a>
+                    </div>
                 </div>
-                <p class="opacity-40 mt-2 text-black">
-                </p>
-                <div class="linner mt-6 flex items-center justify-between">
-                    <a href="" class="text-sm cursor-pointer text-blue-800  inline-block">Read more!</a>
-                    <a id="edit" href="" class="text-yellow-400">Edit<i class="ri-sketching"></i></a>
-                </div>
-            </div>
+                <% }) %>
+                <% } else{ %>
+                    <h1>no task created!</h1>
+                    <% } %>
         </div>
     </div>
 </body>
