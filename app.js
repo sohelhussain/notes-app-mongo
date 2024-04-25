@@ -20,4 +20,12 @@ app.post('/create', async (req, res) => {
     })
     res.redirect('/');
 });
+
+// delete --->
+
+app.get('/delete/:id', async (req, res) => {
+    const deleteId = await titleModel.findOneAndDelete({_id: req.params.id})
+    res.redirect('/');
+});
+
 app.listen(3000);
