@@ -34,11 +34,29 @@ app.get('/delete/:id', async (req, res) => {
 });
 
 
-// read tasks -->
+// delete --->
 
-app.get('/read/:task', async (req, res) => {
-    const search = await titleModel.findOne({_id: req.params.task}) 
-    res.render('read', {search});
+app.get('/delete/:id', async (req, res) => {
+    const deleteId = await titleModel.findOneAndDelete({_id: req.params.id})
+    res.redirect('/');
+});
+
+
+// update tasks -->
+
+app.get('/edit/:id', async (req, res) => {
+    const box = await titleModel.find()
+    const editId = await titleModel.findOne({_id: req.params.id})
+
+    res.render('edit',{box, editId});
+
 })
+
+app.post('/edit/:id', async (req, res) => {
+    const {title, description} = req.body
+    const boxUpdate = await titleModel.findOneAndUpdate({_id: req.params.id}, {title, description}, {new:true})
+    res.redirect('/',)
+});
+
 
 app.listen(3000);

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body>
+    <div class="main w-full h-screen bg-zinc-700 p-5 relative">
+        <div class="form">
+            <form action="/create" method="post">
+                <input class="w-full text-white bg-zinc-500 px-4 py-3 mt-2 rounded-md outline-none" placeholder="write title" type="text" name="title" id="">
+                <textarea class="w-full text-white bg-zinc-500 px-4 py-3 mt-2 rounded-md resize-none h-28 outline-none" placeholder="write a description..." name="description" id="" cols="10" rows="10"></textarea>
+                <input class="px-8 py-2 bg-green-300 rounded-md mt-5" type="submit" value="create">
+            </form>
+        </div>
+        <div class="tile mt-10 flex justify-start flex-wrap items-center gap-5">
+            <% if(box.length > 0){ %>
+                <% box.forEach(file => { %>
+            <div class="box max-w-96 min-w-96 bg-zinc-500 py-5 px-5 rounded-md relative">
+                <div class="up-linner flex items-center justify-between">
+                    <h1 class="text-5xl capitalize"><%= file.files %></h1>
+                    <a href="/remove/<%= file.files %>" class=""><i class="ri-xrp-line text-xl font-bold"></i></a>
+                </div>
+                <p class="opacity-40 mt-2 text-black"><%= file.content %></p>
+                <div class="linner mt-6 flex items-center justify-between">
+                    <a href="/show/<%= file.files %>" class="text-sm cursor-pointer text-blue-800  inline-block">Read more!</a>
+                    <a id="edit" href="/edit/<%= file.files %>" class="text-yellow-400">Edit<i class="ri-sketching"></i></a>
+                </div>
+            </div>
+            <% }) %>
+            <%} else{ %>
+                <h1>not task yet!</h1>
+                <% } %>
+        </div>
+        <div class="overlay w-full h-full absolute z-10 top-0 left-0 bg-gray-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 flex items-center justify-center">
+            <div class="edit-form w-2/6 h-3/5 rounded-xl bg-zinc-700 flex items-center justify-center relative">
+                <a href="/" class="text-white absolute right-6 top-8"><i class="ri-xrp-line text-xl font-bold"></i></a>
+                <div class="form-div w-11/12">
+                    <form action="/edit/<%= editId._id %>" method="post">
+                        <input class="w-full text-white bg-zinc-500 px-4 py-3 mt-2 rounded-md outline-none" placeholder="write new title" type="text" name="title" id="" value="<%= editId.title %>">
+                        <textarea class="w-full text-white bg-zinc-500 px-4 py-3 mt-2 rounded-md resize-none h-52 outline-none" placeholder="write a description..." name="description" id="" cols="10" rows="10"><%= editId.description %></textarea>
+                        <input class="px-8 py-2 bg-yellow-300 cursor-pointer rounded-md mt-5" type="submit" value="update">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
